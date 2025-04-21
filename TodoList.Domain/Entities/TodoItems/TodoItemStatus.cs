@@ -1,4 +1,4 @@
-namespace TodoList.Domain.Todos;
+namespace TodoList.Domain.Entities.TodoItems;
 
 public enum TodoItemStatus
 {
@@ -6,4 +6,4 @@ public enum TodoItemStatus
     NotStarted,
     InProgress,
     Completed
-} 
+}
