@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 using TodoList.Domain.Common;
+using TodoList.Domain.Exceptions;
 using TodoList.Domain.Repositories.Base;
 
 namespace TodoList.Infrastructure.Repositories.Base;
