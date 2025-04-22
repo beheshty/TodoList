@@ -68,4 +68,28 @@ public class TodoItemsController(IMediator mediator) : ControllerBase
         await mediator.Send(command);
         return NoContent();
     }
+
+    /// <summary>
+    /// Updates a Todo item
+    /// </summary>
+    /// <param name="id">The ID of the Todo item</param>
+    /// <param name="request">The update request</param>
+    /// <returns>The updated Todo item</returns>
+    [HttpPut("{id:guid}")]
+    public async Task<IActionResult> Update(Guid id, [FromBody] UpdateTodoItemRequest request)
+    {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+
+        var command = new UpdateTodoItemCommand(
+            id,
+            request.Title,
+            request.Description,
+            request.DueDate);
+
+        var result = await mediator.Send(command);
+        return Ok(result);
+    }
 } 
