@@ -1,10 +1,8 @@
 using FluentAssertions;
 using Moq;
 using TodoList.Application.Commands.TodoItems;
-using TodoList.Application.Tests.Common;
 using TodoList.Domain.Entities.TodoItems;
 using TodoList.Domain.Repositories.TodoItems;
-using Xunit;
 
 namespace TodoList.Application.Tests.Commands.TodoItems;
 
