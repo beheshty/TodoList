@@ -51,9 +51,9 @@ API Layer: Presentation layer that handles HTTP and delegates logic to applicati
 ## 📌 Roadmap / Upcoming Enhancements
 The following features and improvements are in progress or planned:
 
-🐳 Docker support – Enable containerized deployment
-
 ✏️ Update & Delete a Todo task – Extend CRUD operations
+
+🐳 Docker support – Enable containerized deployment
 
 ♻️ Service registration refactor – Improve DI setup for modularity and scalability
 
