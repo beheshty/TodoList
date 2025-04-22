@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Mvc;
 using TodoList.Application.Commands.TodoItems;
 using TodoList.Application.Queries.TodoItems;
 using TodoList.Application;
-using TodoList.Domain.Entities.TodoItems;
 using TodoList.API.Models;
 
 namespace TodoList.API.Controllers;
@@ -60,5 +59,13 @@ public class TodoItemsController(IMediator mediator) : ControllerBase
 
         var result = await mediator.Send(query);
         return Ok(result);
+    }
+
+    [HttpPatch("{id:guid}/status")]
+    public async Task<IActionResult> UpdateStatus(Guid id, [FromBody] UpdateTodoItemStatusRequest request)
+    {
+        var command = new UpdateTodoItemStatusCommand(id, request.Status);
+        await mediator.Send(command);
+        return NoContent();
     }
 } 
