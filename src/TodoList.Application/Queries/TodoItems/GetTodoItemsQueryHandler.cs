@@ -15,6 +15,9 @@ public class GetTodoItemsQueryHandler : IQueryHandler<GetTodoItemsQuery, List<To
 
     public async Task<List<TodoItem>> Handle(GetTodoItemsQuery query, CancellationToken cancellationToken = default)
     {
+        if (query == null)
+            throw new ArgumentNullException(nameof(query));
+
         var filter = new TodoItemFilter(
             SearchTerm: query.SearchTerm,
             Status: query.Status,

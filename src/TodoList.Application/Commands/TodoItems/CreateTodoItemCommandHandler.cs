@@ -14,6 +14,9 @@ public class CreateTodoItemCommandHandler : ICommandHandler<CreateTodoItemComman
 
     public async Task<TodoItem> Handle(CreateTodoItemCommand command, CancellationToken cancellationToken = default)
     {
+        if (command == null)
+            throw new ArgumentNullException(nameof(command));
+
         var todoItem = new TodoItem(
             command.Title,
             command.Description,
