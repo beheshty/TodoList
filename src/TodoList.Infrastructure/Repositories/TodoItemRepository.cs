@@ -1,6 +1,7 @@
 ﻿
 using Microsoft.EntityFrameworkCore;
 using TodoList.Domain.Entities.TodoItems;
+using TodoList.Domain.Filters;
 using TodoList.Domain.Repositories.TodoItems;
 using TodoList.Infrastructure.Data;
 using TodoList.Infrastructure.Repositories.Base;

@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Mvc;
 using TodoList.Application.Commands.TodoItems;
 using TodoList.Application.Queries.TodoItems;
 using TodoList.Application;
+using TodoList.Domain.Entities.TodoItems;
+using TodoList.API.Models;
 
 namespace TodoList.API.Controllers;
 
@@ -25,6 +27,21 @@ public class TodoItemsController(IMediator mediator) : ControllerBase
         if (result == null)
             return NotFound();
             
+        return Ok(result);
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> GetList([FromQuery] GetTodoItemsRequest request)
+    {
+        var query = new GetTodoItemsQuery(
+            SearchTerm: request.SearchTerm,
+            Status: request.Status,
+            FromDueDate: request.FromDueDate,
+            ToDueDate: request.ToDueDate,
+            SkipCount: request.SkipCount,
+            MaxResultCount: request.MaxResultCount);
+
+        var result = await mediator.Send(query);
         return Ok(result);
     }
 } 
