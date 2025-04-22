@@ -12,8 +12,20 @@ namespace TodoList.API.Controllers;
 public class TodoItemsController(IMediator mediator) : ControllerBase
 {
     [HttpPost]
-    public async Task<IActionResult> Create([FromBody] CreateTodoItemCommand command)
+    public async Task<IActionResult> Create([FromBody] CreateTodoItemRequest request)
     {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+        
+        var command = new CreateTodoItemCommand
+        {
+            Title = request.Title,
+            Description = request.Description,
+            DueDate = request.DueDate
+        };
+        
         var result = await mediator.Send(command);
         return Ok(result);
     }
@@ -33,6 +45,11 @@ public class TodoItemsController(IMediator mediator) : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetList([FromQuery] GetTodoItemsRequest request)
     {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+        
         var query = new GetTodoItemsQuery(
             SearchTerm: request.SearchTerm,
             Status: request.Status,
