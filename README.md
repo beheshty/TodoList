@@ -1,44 +1,60 @@
 # TodoList API
+A clean and modular RESTful API for managing todo items, built with .NET 8.0 using Domain-Driven Design (DDD) and Clean Architecture principles.
 
-A RESTful API for managing todo items, built with .NET Core following Domain-Driven Design (DDD) principles.
+---
 
-## Project Structure
+## 🔧 Project Structure
+The solution is structured into the following projects:
 
-The solution is organized into the following projects:
+TodoList.API: Entry point. Exposes HTTP endpoints via ASP.NET Core.
 
-- **TodoList.API**: Web API project that handles HTTP requests
-- **TodoList.Application**: Contains application services, interfaces, and DTOs
-- **TodoList.Domain**: Contains domain entities, value objects, and domain logic
-- **TodoList.Infrastructure**: Contains implementations of repositories and external services
+TodoList.Application: Application logic, use cases, DTOs, interfaces.
 
-## Getting Started
+TodoList.Domain: Core business logic – aggregates, entities, value objects.
 
-### Prerequisites
+TodoList.Infrastructure: Persistence (e.g., EF Core) and external service integrations.
 
-- .NET 8.0 SDK
-- Visual Studio 2022 or VS Code
+---
 
-### Running the Project
+## 🚀 Getting Started
+Prerequisites
+.NET 8.0 SDK
 
-1. Clone the repository
-2. Navigate to the solution directory
-3. Run the following commands:
+Visual Studio 2022 (or later) / VS Code
 
-```bash
+Running the API
+bash
+Copy
+Edit
+git clone <repository-url>
+cd TodoList
 dotnet restore
 dotnet build
 dotnet run --project TodoList.API
-```
+The API will start on https://localhost:5001 or similar, depending on your launch profile.
 
-## Architecture
+---
 
-This project follows Domain-Driven Design principles with a clean architecture approach:
+## 🧠 Architecture
+This project is built with separation of concerns in mind:
 
-- **Domain Layer**: Contains the core business logic and entities
-- **Application Layer**: Contains use cases and application services
-- **Infrastructure Layer**: Contains implementations of repositories and external services
-- **API Layer**: Handles HTTP requests and responses
+Domain Layer: Pure domain model, aggregates, and business rules.
 
-## License
+Application Layer: Use cases, interfaces, service contracts.
 
-This project is licensed under the MIT License. 
+Infrastructure Layer: External concerns (e.g., data access, messaging).
+
+API Layer: Presentation layer that handles HTTP and delegates logic to application services.
+
+---
+
+## 📌 Roadmap / Upcoming Enhancements
+The following features and improvements are in progress or planned:
+
+🐳 Docker support – Enable containerized deployment
+
+✏️ Update & Delete a Todo task – Extend CRUD operations
+
+♻️ Service registration refactor – Improve DI setup for modularity and scalability
+
+⚙️ Automatic Unit of Work – Streamline transaction management across repositories
