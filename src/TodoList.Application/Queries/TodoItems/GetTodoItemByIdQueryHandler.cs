@@ -14,6 +14,9 @@ public class GetTodoItemByIdQueryHandler : IQueryHandler<GetTodoItemByIdQuery, T
 
     public async Task<TodoItem> Handle(GetTodoItemByIdQuery query, CancellationToken cancellationToken = default)
     {
+        if (query == null)
+            throw new ArgumentNullException(nameof(query));
+
         return await _todoItemRepository.GetAsync(query.Id, cancellationToken);
     }
 } 
