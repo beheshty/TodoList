@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
-    <ProjectReference Include="..\..\TodoList.Domain\TodoList.Domain.csproj" />
+    <ProjectReference Include="..\..\src\TodoList.Domain\TodoList.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>

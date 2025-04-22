@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using TodoList.Infrastructure.Data;
 
 namespace TodoList.Infrastructure.Extensions;
@@ -23,5 +24,15 @@ public static class ServiceCollectionExtensions
             options.UseSqlServer(connectionString));
 
         return services;
+    }
+
+    public static async Task InitializeDatabaseAsync(this IServiceProvider serviceProvider)
+    {
+        using var scope = serviceProvider.CreateScope();
+        var services = scope.ServiceProvider;
+        var context = services.GetRequiredService<TodoListDbContext>();
+        var logger = services.GetRequiredService<ILogger<TodoListDbContext>>();
+
+        await DatabaseInitializer.InitializeAsync(context, logger);
     }
 } 
