@@ -16,8 +16,6 @@ builder.Services.AddSwaggerGen();
 // Configure Infrastructure Services
 builder.Services.AddTodoListDbContext(builder.Configuration.GetConnectionString("DefaultConnection")!);
 builder.Services.AddRepositories();
-
-// Add MediatR
 builder.Services.AddMediator(typeof(CreateTodoItemCommand).Assembly);
 
 // Add Health Checks

@@ -12,15 +12,12 @@ public static class DatabaseInitializer
             // Apply migrations and create database if it doesn't exist
             await context.Database.MigrateAsync();
             
-            // Seed initial data if needed
-            // await SeedDataAsync(context);
-            
             logger.LogInformation("Database initialized successfully");
         }
         catch (Exception ex)
         {
             logger.LogError(ex, "An error occurred while initializing the database");
-            throw; // Rethrow to ensure the application fails to start if database initialization fails
+            throw;
         }
     }
 } 
