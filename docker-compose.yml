@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  db:
+    image: mcr.microsoft.com/mssql/server:2022-latest # Use the desired SQL Server version
+    container_name: todolist-db
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: "ThisIs_a_StrongP@ssw0rd" # CHANGE THIS! Use a strong password, consider secrets management
+      MSSQL_PID: "Developer" # Use Developer edition for development
+    ports:
+      - "1433:1433" # Map host port 1433 to container port 1433
+    volumes:
+      - sqlserver_data:/var/opt/mssql # Persist database data
+
+  api:
+    container_name: todolist-api
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080" # Map host port 8080 to container port 8080 (where Kestrel listens by default in .NET 8)
+      # If you need HTTPS inside the container as well (requires cert setup):
+      # - "8081:8081"
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Development" # Or Production, Staging, etc.
+      ASPNETCORE_URLS: "http://+:8080" # Tell Kestrel to listen on port 8080 within the container
+      # Connection string pointing to the db service
+      ConnectionStrings__DefaultConnection: "Server=db,1433;Database=TodoListDb;User ID=sa;Password=ThisIs_a_StrongP@ssw0rd;TrustServerCertificate=True;" # Use the same password as above
+    depends_on:
+      - db # Ensure the database service starts before the API service
+
+volumes:
+  sqlserver_data: # Define the named volume for data persistence 
