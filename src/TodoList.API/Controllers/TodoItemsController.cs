@@ -91,4 +91,12 @@ public class TodoItemsController(IMediator mediator) : ControllerBase
         var result = await mediator.Send(command);
         return Ok(result);
     }
+
+    [HttpDelete("{id:guid}")]
+    public async Task<IActionResult> Delete(Guid id)
+    {
+        var command = new DeleteTodoItemCommand(id);
+        var result = await mediator.Send(command);
+        return Ok(result);
+    }
 } 
