@@ -53,7 +53,7 @@ The following features and improvements are in progress or planned:
 
 - [x] ✏️ ~~Update & Delete a Todo task – Extend CRUD operations~~
 
-- [ ] 🐳 Docker support – Enable containerized deployment
+- [x] 🐳 ~~Docker support – Enable containerized deployment~~
 
 - [ ] 🛡️ Global exception handler – Centralized error handling with consistent API responses
 
