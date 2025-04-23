@@ -55,6 +55,8 @@ The following features and improvements are in progress or planned:
 
 🐳 Docker support – Enable containerized deployment
 
+🛡️ Global exception handler – Centralized error handling with consistent API responses
+
 ♻️ Service registration refactor – Improve DI setup for modularity and scalability
 
 ⚙️ Automatic Unit of Work – Streamline transaction management across repositories
