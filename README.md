@@ -62,3 +62,5 @@ The following features and improvements are in progress or planned:
 - [ ] ⚙️ Automatic Unit of Work – Streamline transaction management across repositories
 
 - [ ] 🧩 Add Mapperly – Use it as the mapping library for cleaner and faster projections
+      
+- [ ] 📊 OpenTelemetry for logging – Standardized distributed tracing and structured logs
