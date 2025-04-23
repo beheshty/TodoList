@@ -51,14 +51,14 @@ API Layer: Presentation layer that handles HTTP and delegates logic to applicati
 ## 📌 Roadmap / Upcoming Enhancements
 The following features and improvements are in progress or planned:
 
-✏️ Update & Delete a Todo task – Extend CRUD operations
+- [x] ✏️ ~~Update & Delete a Todo task – Extend CRUD operations~~
 
-🐳 Docker support – Enable containerized deployment
+- [ ] 🐳 Docker support – Enable containerized deployment
 
-🛡️ Global exception handler – Centralized error handling with consistent API responses
+- [ ] 🛡️ Global exception handler – Centralized error handling with consistent API responses
 
-♻️ Service registration refactor – Improve DI setup for modularity and scalability
+- [ ] ♻️ Service registration refactor – Improve DI setup for modularity and scalability
 
-⚙️ Automatic Unit of Work – Streamline transaction management across repositories
+- [ ] ⚙️ Automatic Unit of Work – Streamline transaction management across repositories
 
-🧩 Add Mapperly – Use it as the mapping library for cleaner and faster projections
+- [ ] 🧩 Add Mapperly – Use it as the mapping library for cleaner and faster projections
