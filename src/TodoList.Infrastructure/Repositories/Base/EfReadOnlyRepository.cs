@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 using TodoList.Domain.Common;
-using TodoList.Domain.Exceptions;
 using TodoList.Domain.Repositories.Base;
 
 namespace TodoList.Infrastructure.Repositories.Base;
@@ -52,7 +51,7 @@ public abstract class EfReadOnlyRepository<TEntity, TKey, TDbContext>(TDbContext
     {
         var entity = await FindAsync(id, cancellationToken);
 
-        return entity ?? throw new EntityNotFoundException(typeof(TEntity), id);
+        return entity ?? throw new KeyNotFoundException($"Entity of type {typeof(TEntity).FullName} with id {id} was not found.");
     }
 
     public virtual async Task<TEntity?> FindAsync(TKey id, CancellationToken cancellationToken = default)

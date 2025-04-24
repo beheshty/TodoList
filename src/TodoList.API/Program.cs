@@ -3,8 +3,8 @@ using TodoList.Application.Commands.TodoItems;
 using TodoList.Infrastructure.Extensions;
 using TodoList.Infrastructure.Mediator;
 using TodoList.Infrastructure.Data;
-using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using TodoList.API.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,6 +22,10 @@ builder.Services.AddMediator(typeof(CreateTodoItemCommand).Assembly);
 builder.Services.AddHealthChecks()
     .AddDbContextCheck<TodoListDbContext>("database");
 
+// Register the custom exception handler
+builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+builder.Services.AddProblemDetails();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -33,6 +37,9 @@ if (app.Environment.IsDevelopment())
 
 // Initialize Database
 await app.Services.InitializeDatabaseAsync();
+
+// Map the exception handler before other middleware
+app.UseExceptionHandler(); // Uses the registered IExceptionHandler
 
 app.UseHttpsRedirection();
 
