@@ -57,7 +57,7 @@ The following features and improvements are in progress or planned:
 
 - [x] 🛡️ ~~Global exception handler – Centralized error handling with consistent API responses~~
 
-- [ ] ⚙️ Automatic Unit of Work – Streamline transaction management across repositories
+- [x] ⚙️ ~~Automatic Unit of Work – Streamline transaction management across repositories~~
 
 - [x] 🧩 ~~Add Mapperly – Use it as the mapping library for cleaner and faster projections~~
       
