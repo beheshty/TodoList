@@ -3,6 +3,7 @@ using TodoList.Application.Commands.TodoItems;
 using TodoList.Application.Queries.TodoItems;
 using TodoList.Application;
 using TodoList.API.Models;
+using TodoList.API.Mappings;
 
 namespace TodoList.API.Controllers;
 
@@ -18,12 +19,7 @@ public class TodoItemsController(IMediator mediator) : ControllerBase
             return BadRequest(ModelState);
         }
         
-        var command = new CreateTodoItemCommand
-        {
-            Title = request.Title,
-            Description = request.Description,
-            DueDate = request.DueDate
-        };
+        var command = request.ToCommand();
         
         var result = await mediator.Send(command);
         return Ok(result);
@@ -32,7 +28,7 @@ public class TodoItemsController(IMediator mediator) : ControllerBase
     [HttpGet("{id:guid}")]
     public async Task<IActionResult> GetById(Guid id)
     {
-        var query = new GetTodoItemByIdQuery(id);
+        var query = new GetTodoItemByIdQuery { Id = id };
         var result = await mediator.Send(query);
         
         if (result == null)
@@ -49,13 +45,7 @@ public class TodoItemsController(IMediator mediator) : ControllerBase
             return BadRequest(ModelState);
         }
         
-        var query = new GetTodoItemsQuery(
-            SearchTerm: request.SearchTerm,
-            Status: request.Status,
-            FromDueDate: request.FromDueDate,
-            ToDueDate: request.ToDueDate,
-            SkipCount: request.SkipCount,
-            MaxResultCount: request.MaxResultCount);
+        var query = request.ToQuery();
 
         var result = await mediator.Send(query);
         return Ok(result);
@@ -68,7 +58,9 @@ public class TodoItemsController(IMediator mediator) : ControllerBase
         {
             return BadRequest(ModelState);
         }
-        var command = new UpdateTodoItemStatusCommand(id, request.Status);
+        
+        var command = request.ToCommand(id);
+        
         await mediator.Send(command);
         return NoContent();
     }
@@ -82,11 +74,7 @@ public class TodoItemsController(IMediator mediator) : ControllerBase
             return BadRequest(ModelState);
         }
 
-        var command = new UpdateTodoItemCommand(
-            id,
-            request.Title,
-            request.Description,
-            request.DueDate);
+        var command = request.ToCommand(id);
 
         var result = await mediator.Send(command);
         return Ok(result);
@@ -95,7 +83,7 @@ public class TodoItemsController(IMediator mediator) : ControllerBase
     [HttpDelete("{id:guid}")]
     public async Task<IActionResult> Delete(Guid id)
     {
-        var command = new DeleteTodoItemCommand(id);
+        var command = new DeleteTodoItemCommand { Id = id };
         var result = await mediator.Send(command);
         return Ok(result);
     }
