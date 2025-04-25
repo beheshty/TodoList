@@ -28,7 +28,10 @@ public class DeleteTodoItemCommandHandlerTests : TestBase
             Id = todoId
         };
         existingTodoItem.ChangeStatus(TodoItemStatus.InProgress);
-        var command = new DeleteTodoItemCommand(todoId);
+        var command = new DeleteTodoItemCommand()
+        {
+            Id = todoId
+        };
 
         _todoItemRepositoryMock
             .Setup(x => x.GetAsync(todoId, It.IsAny<CancellationToken>()))
@@ -66,7 +69,10 @@ public class DeleteTodoItemCommandHandlerTests : TestBase
             Id = todoId
         };
         existingTodoItem.ChangeStatus(TodoItemStatus.Completed);
-        var command = new DeleteTodoItemCommand(todoId);
+        var command = new DeleteTodoItemCommand()
+        {
+            Id = todoId
+        };
 
         _todoItemRepositoryMock
             .Setup(x => x.GetAsync(todoId, It.IsAny<CancellationToken>()))
@@ -93,7 +99,10 @@ public class DeleteTodoItemCommandHandlerTests : TestBase
     {
         // Arrange
         var todoId = Guid.NewGuid();
-        var command = new DeleteTodoItemCommand(todoId);
+        var command = new DeleteTodoItemCommand()
+        {
+            Id = todoId
+        };
 
         _todoItemRepositoryMock
             .Setup(x => x.GetAsync(todoId, It.IsAny<CancellationToken>()))

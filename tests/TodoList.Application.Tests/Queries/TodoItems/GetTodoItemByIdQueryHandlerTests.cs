@@ -23,7 +23,10 @@ public class GetTodoItemByIdQueryHandlerTests : TestBase
     {
         // Arrange
         var todoId = Guid.NewGuid();
-        var query = new GetTodoItemByIdQuery(todoId);
+        var query = new GetTodoItemByIdQuery()
+        {
+            Id = todoId
+        };
         var expectedTodoItem = new TodoItem("Test Todo", "Test Description");
 
         _todoItemRepositoryMock
@@ -62,7 +65,10 @@ public class GetTodoItemByIdQueryHandlerTests : TestBase
     {
         // Arrange
         var todoId = Guid.NewGuid();
-        var query = new GetTodoItemByIdQuery(todoId);
+        var query = new GetTodoItemByIdQuery()
+        {
+            Id = todoId
+        };
 
         _todoItemRepositoryMock
             .Setup(x => x.GetAsync(todoId, It.IsAny<CancellationToken>()))

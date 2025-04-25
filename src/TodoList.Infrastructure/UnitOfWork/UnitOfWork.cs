@@ -14,14 +14,12 @@ namespace TodoList.Infrastructure.UnitOfWork
         public Guid Id => _id;
         private TransactionScope _transactionScope;
         private readonly TodoListDbContext _dbContext;
-        private readonly ILogger _logger;
         private IServiceScope? _syncScope;
         private AsyncServiceScope? _asyncScope;
 
-        public UnitOfWork(TodoListDbContext dbContext, ILogger logger)
+        public UnitOfWork(TodoListDbContext dbContext)
         {
             _dbContext = dbContext;
-            _logger = logger;
         }
 
         public bool IsTransactional { get; private set; }
@@ -161,42 +159,12 @@ namespace TodoList.Infrastructure.UnitOfWork
 
         public async Task SaveChangesAsync(CancellationToken cancellationToken = default)
         {
-            try
-            {
-                await _dbContext.SaveChangesAsync(cancellationToken);
-            }
-            catch (DbUpdateConcurrencyException ex)
-            {
-                _logger.LogError(ex, "Db Update Concurrency Exception happened");
-                throw new PftDbUpdateConcurrencyException(ex.Message, ex,
-                    nameof(dbContext));
-            }
+            await _dbContext.SaveChangesAsync(cancellationToken);
         }
 
         public void SaveChanges()
         {
-            try
-            {
-                _dbContext.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException ex)
-            {
-                _logger.LogError(ex, "Db Update Concurrency Exception happened");
-                throw new PftDbUpdateConcurrencyException(ex.Message, ex,
-                    nameof(dbContext));
-            }
-        }
-
-        private static List<DomainEventRecord> CollectDomainEvents(List<IGeneratesDomainEvents> aggregateRoots)
-        {
-            var domainEvents = new List<DomainEventRecord>();
-            foreach (var aggregateRoot in aggregateRoots)
-            {
-                domainEvents.AddRange(aggregateRoot.GetAllEvents());
-                aggregateRoot.ClearAllEvents();
-            }
-
-            return domainEvents;
+            _dbContext.SaveChanges();
         }
     }
 }
