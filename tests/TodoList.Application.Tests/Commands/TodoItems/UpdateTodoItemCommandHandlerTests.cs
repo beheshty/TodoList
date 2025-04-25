@@ -28,11 +28,13 @@ public class UpdateTodoItemCommandHandlerTests : TestBase
             DueDate = DateTime.UtcNow.AddDays(1)
         };
 
-        var command = new UpdateTodoItemCommand(
-            existingTodoItem.Id,
-            "Updated Title",
-            "Updated Description",
-            DateTime.UtcNow.AddDays(2));
+        var command = new UpdateTodoItemCommand()
+        {
+            Id = existingTodoItem.Id,
+            Title = "Updated Title",
+            Description = "Updated Description",
+            DueDate = DateTime.UtcNow.AddDays(2)
+        };
 
         _todoItemRepositoryMock
             .Setup(x => x.GetAsync(existingTodoItem.Id, It.Is<CancellationToken>(c => c == default)))
@@ -74,11 +76,13 @@ public class UpdateTodoItemCommandHandlerTests : TestBase
     public async Task Handle_NonExistentTodoItem_ShouldThrowKeyNotFoundException()
     {
         // Arrange
-        var command = new UpdateTodoItemCommand(
-            Guid.NewGuid(),
-            "Updated Title",
-            "Updated Description",
-            DateTime.UtcNow.AddDays(1));
+        var command = new UpdateTodoItemCommand()
+        {
+            Id = Guid.NewGuid(),
+            Title = "Updated Title",
+            Description = "Updated Description",
+            DueDate = DateTime.UtcNow.AddDays(1)
+        };
 
         _todoItemRepositoryMock
             .Setup(x => x.GetAsync(command.Id, It.Is<CancellationToken>(c => c == default)))

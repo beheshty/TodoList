@@ -23,7 +23,11 @@ public class UpdateTodoItemStatusCommandHandlerTests
         // Arrange
         var todoId = Guid.NewGuid();
         var existingTodoItem = new TodoItem("Test Todo", "Test Description");
-        var command = new UpdateTodoItemStatusCommand(todoId, TodoItemStatus.Completed);
+        var command = new UpdateTodoItemStatusCommand()
+        {
+            Id = todoId,
+            Status = TodoItemStatus.Completed
+        };
 
         _todoItemRepositoryMock
             .Setup(x => x.GetAsync(It.Is<Guid>(id => id == todoId), It.Is<CancellationToken>(ct => ct == CancellationToken.None)))
@@ -73,7 +77,11 @@ public class UpdateTodoItemStatusCommandHandlerTests
     {
         // Arrange
         var todoId = Guid.NewGuid();
-        var command = new UpdateTodoItemStatusCommand(todoId, TodoItemStatus.Completed);
+        var command = new UpdateTodoItemStatusCommand()
+        {
+            Id = todoId,
+            Status = TodoItemStatus.Completed
+        };
 
         _todoItemRepositoryMock
             .Setup(x => x.GetAsync(It.Is<Guid>(id => id == todoId), It.Is<CancellationToken>(ct => ct == CancellationToken.None)))

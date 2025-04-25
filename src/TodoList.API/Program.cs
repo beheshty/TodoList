@@ -1,10 +1,10 @@
 using Microsoft.EntityFrameworkCore;
-using TodoList.Application.Commands.TodoItems;
 using TodoList.Infrastructure.Extensions;
 using TodoList.Infrastructure.Mediator;
 using TodoList.Infrastructure.Data;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using TodoList.API.Middleware;
+using TodoList.Infrastructure.UnitOfWork;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,10 +13,13 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddUnitOfWork();
+
 // Configure Infrastructure Services
 builder.Services.AddTodoListDbContext(builder.Configuration.GetConnectionString("DefaultConnection")!);
 builder.Services.AddRepositories();
-builder.Services.AddMediator(typeof(CreateTodoItemCommand).Assembly);
+
+builder.Services.AddMediator();
 
 // Add Health Checks
 builder.Services.AddHealthChecks()
@@ -39,7 +42,7 @@ if (app.Environment.IsDevelopment())
 await app.Services.InitializeDatabaseAsync();
 
 // Map the exception handler before other middleware
-app.UseExceptionHandler(); // Uses the registered IExceptionHandler
+app.UseExceptionHandler();
 
 app.UseHttpsRedirection();
 
