@@ -5,8 +5,13 @@ using TodoList.Infrastructure.Data;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using TodoList.API.Middleware;
 using TodoList.Infrastructure.UnitOfWork;
+using TodoList.API.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Configure OpenTelemetry (traces, metrics, logs)
+builder.Services.AddOpenTelemetryServices(builder.Configuration);
+builder.Logging.AddOpenTelemetryLogging(builder.Configuration);
 
 // Add services to the container
 builder.Services.AddControllers();
