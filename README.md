@@ -28,7 +28,6 @@ src/
     Mediator/             # Mediator pattern implementation
 tests/
   TodoList.Application.Tests/ # Unit tests for Application layer
-  TodoList.Domain.Tests/      # Unit tests for Domain layer
 ```
 
 ---
@@ -80,7 +79,7 @@ docker-compose up --build
 - Docker support for containerized deployment
 - API documentation with Swagger (OpenAPI)
 - OpenTelemetry for distributed tracing, metrics, and structured logging
-- Unit and integration tests (xUnit, Moq)
+- Unit tests (xUnit, Moq)
 - Extensible for future enhancements
 
 ---
