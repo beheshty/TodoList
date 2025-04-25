@@ -57,8 +57,6 @@ The following features and improvements are in progress or planned:
 
 - [x] 🛡️ ~~Global exception handler – Centralized error handling with consistent API responses~~
 
-- [ ] ♻️ Service registration refactor – Improve DI setup for modularity and scalability
-
 - [ ] ⚙️ Automatic Unit of Work – Streamline transaction management across repositories
 
 - [ ] 🧩 Add Mapperly – Use it as the mapping library for cleaner and faster projections
