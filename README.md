@@ -107,21 +107,6 @@ docker-compose up --build
 
 ---
 
-## 🔒 Security
-
-- JWT authentication ready for stateless APIs
-- CORS policies configurable in `Program.cs`
-- HTTPS enforced by default
-
----
-
-## 📖 API Documentation
-
-- Swagger UI available at `/swagger` when running the API.
-- XML comments enhance endpoint documentation.
-
----
-
 ## 🛠️ Deployment
 
 - **Docker**: Use the provided `Dockerfile` and `docker-compose.yml` for containerized deployment.
@@ -140,12 +125,6 @@ docker-compose up --build
 ## 🤝 Contributing
 
 Contributions are welcome! Please open issues or submit pull requests.
-
----
-
-## 📄 License
-
-[MIT](LICENSE)
 
 ---
 
