@@ -6,15 +6,8 @@ namespace TodoList.API.Middleware;
 /// <summary>
 /// Handles global exceptions and returns appropriate HTTP status codes and problem details.
 /// </summary>
-public class GlobalExceptionHandler : IExceptionHandler
+public class GlobalExceptionHandler(ILogger<GlobalExceptionHandler> logger) : IExceptionHandler
 {
-    private readonly ILogger<GlobalExceptionHandler> _logger;
-
-    public GlobalExceptionHandler(ILogger<GlobalExceptionHandler> logger)
-    {
-        _logger = logger;
-    }
-
     public async ValueTask<bool> TryHandleAsync(HttpContext httpContext, Exception exception, CancellationToken cancellationToken)
     {
         var (statusCode, title) = exception switch
@@ -25,7 +18,7 @@ public class GlobalExceptionHandler : IExceptionHandler
             _ => (StatusCodes.Status500InternalServerError, "An unexpected error occurred.")
         };
 
-        _logger.LogError(exception, "Exception caught by global handler: {Message}", exception.Message);
+        logger.LogError(exception, "Exception caught by global handler: {Message}", exception.Message);
 
         var isDevelopment = httpContext.RequestServices
             .GetRequiredService<IWebHostEnvironment>().IsDevelopment();

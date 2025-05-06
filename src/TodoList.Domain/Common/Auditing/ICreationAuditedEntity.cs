@@ -1,5 +1,3 @@
-using System;
-
 namespace TodoList.Domain.Common.Auditing;
 
 public interface ICreationAuditedEntity 

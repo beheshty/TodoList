@@ -1,6 +1,4 @@
-﻿using System.Threading;
-
-namespace TodoList.Domain.Common.Events;
+﻿namespace TodoList.Domain.Common.Events;
 
 /// <summary>
 /// Generates sequential event order numbers in a thread-safe manner.

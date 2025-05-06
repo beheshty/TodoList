@@ -3,15 +3,9 @@ using TodoList.Domain.Repositories.TodoItems;
 
 namespace TodoList.Application.Commands.TodoItems;
 
-public class CreateTodoItemCommandHandler : ICommandHandler<CreateTodoItemCommand, TodoItem>
+public class CreateTodoItemCommandHandler(ITodoItemRepository todoItemRepository)
+    : ICommandHandler<CreateTodoItemCommand, TodoItem>
 {
-    private readonly ITodoItemRepository _todoItemRepository;
-
-    public CreateTodoItemCommandHandler(ITodoItemRepository todoItemRepository)
-    {
-        _todoItemRepository = todoItemRepository;
-    }
-
     public async Task<TodoItem> Handle(CreateTodoItemCommand command, CancellationToken cancellationToken = default)
     {
         if (command == null)
@@ -22,7 +16,7 @@ public class CreateTodoItemCommandHandler : ICommandHandler<CreateTodoItemComman
             command.Description,
             command.DueDate);
 
-        await _todoItemRepository.InsertAsync(todoItem, true, cancellationToken);
+        await todoItemRepository.InsertAsync(todoItem, true, cancellationToken);
         return todoItem;
     }
 }

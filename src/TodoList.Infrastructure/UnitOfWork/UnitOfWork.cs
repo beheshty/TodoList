@@ -1,26 +1,19 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using System.Data;
 using System.Transactions;
-using TodoList.Domain.Common.Events;
 using TodoList.Infrastructure.Data;
 
 namespace TodoList.Infrastructure.UnitOfWork
 {
-    public class UnitOfWork : IUnitOfWork
+    //todo "IDisposable" should be implemented correctly
+    public class UnitOfWork(TodoListDbContext dbContext) : IUnitOfWork
     {
         private readonly Guid _id = Guid.NewGuid();
         public Guid Id => _id;
         private TransactionScope _transactionScope;
-        private readonly TodoListDbContext _dbContext;
         private IServiceScope? _syncScope;
         private AsyncServiceScope? _asyncScope;
-
-        public UnitOfWork(TodoListDbContext dbContext)
-        {
-            _dbContext = dbContext;
-        }
 
         public bool IsTransactional { get; private set; }
         public bool IsCompleted { get; private set; }
@@ -32,7 +25,7 @@ namespace TodoList.Infrastructure.UnitOfWork
                 return;
             if (isTransactional)
             {
-                var connection = _dbContext.Database.GetDbConnection();
+                var connection = dbContext.Database.GetDbConnection();
                 if (connection.State != ConnectionState.Open)
                 {
                     await connection.OpenAsync();
@@ -50,7 +43,7 @@ namespace TodoList.Infrastructure.UnitOfWork
             {
                 _transactionScope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled);
 
-                var connection = _dbContext.Database.GetDbConnection();
+                var connection = dbContext.Database.GetDbConnection();
                 if (connection.State != ConnectionState.Open)
                 {
                     connection.Open();
@@ -159,12 +152,12 @@ namespace TodoList.Infrastructure.UnitOfWork
 
         public async Task SaveChangesAsync(CancellationToken cancellationToken = default)
         {
-            await _dbContext.SaveChangesAsync(cancellationToken);
+            await dbContext.SaveChangesAsync(cancellationToken);
         }
 
         public void SaveChanges()
         {
-            _dbContext.SaveChanges();
+            dbContext.SaveChanges();
         }
     }
 }

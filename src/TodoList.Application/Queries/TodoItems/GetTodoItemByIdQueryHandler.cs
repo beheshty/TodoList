@@ -3,20 +3,14 @@ using TodoList.Domain.Repositories.TodoItems;
 
 namespace TodoList.Application.Queries.TodoItems;
 
-public class GetTodoItemByIdQueryHandler : IQueryHandler<GetTodoItemByIdQuery, TodoItem>
+public class GetTodoItemByIdQueryHandler(ITodoItemRepository todoItemRepository)
+    : IQueryHandler<GetTodoItemByIdQuery, TodoItem>
 {
-    private readonly ITodoItemRepository _todoItemRepository;
-
-    public GetTodoItemByIdQueryHandler(ITodoItemRepository todoItemRepository)
-    {
-        _todoItemRepository = todoItemRepository;
-    }
-
     public async Task<TodoItem> Handle(GetTodoItemByIdQuery query, CancellationToken cancellationToken = default)
     {
         if (query == null)
             throw new ArgumentNullException(nameof(query));
 
-        return await _todoItemRepository.GetAsync(query.Id, cancellationToken);
+        return await todoItemRepository.GetAsync(query.Id, cancellationToken);
     }
 } 

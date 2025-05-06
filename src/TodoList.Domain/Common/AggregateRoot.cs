@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace TodoList.Domain.Common;
+﻿namespace TodoList.Domain.Common;
 
 [Serializable]
 public abstract class AggregateRoot : BasicAggregateRoot, IHasConcurrencyStamp

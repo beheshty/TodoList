@@ -1,4 +1,3 @@
-using System.Linq.Expressions;
 using TodoList.Domain.Entities.TodoItems;
 using TodoList.Domain.Filters;
 using TodoList.Domain.Repositories.Base;
