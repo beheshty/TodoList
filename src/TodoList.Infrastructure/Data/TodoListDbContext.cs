@@ -3,14 +3,9 @@ using TodoList.Domain.Entities.TodoItems;
 
 namespace TodoList.Infrastructure.Data;
 
-public class TodoListDbContext : DbContext
+public class TodoListDbContext(DbContextOptions<TodoListDbContext> options) : DbContext(options)
 {
     public DbSet<TodoItem> TodoItems { get; set; }
-
-    public TodoListDbContext(DbContextOptions<TodoListDbContext> options)
-        : base(options)
-    {
-    }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

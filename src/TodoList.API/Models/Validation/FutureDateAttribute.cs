@@ -7,15 +7,12 @@ public class FutureDateAttribute : ValidationAttribute
 {
     public override bool IsValid(object? value)
     {
-        if (value == null)
-            return true; // Null values are considered valid (use Required if needed)
-            
-        if (value is DateTime dateTime)
+        return value switch
         {
-            return dateTime.Date >= DateTime.UtcNow.Date;
-        }
-        
-        return false;
+            null => true,
+            DateTime dateTime => dateTime.Date >= DateTime.UtcNow.Date,
+            _ => false
+        };
     }
     
     public override string FormatErrorMessage(string name)

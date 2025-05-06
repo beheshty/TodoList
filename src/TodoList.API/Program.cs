@@ -1,4 +1,3 @@
-using Microsoft.EntityFrameworkCore;
 using TodoList.Infrastructure.Extensions;
 using TodoList.Infrastructure.Mediator;
 using TodoList.Infrastructure.Data;
@@ -74,4 +73,4 @@ app.MapHealthChecks("/health", new HealthCheckOptions
 
 app.MapControllers();
 
-app.Run();
+await app.RunAsync();

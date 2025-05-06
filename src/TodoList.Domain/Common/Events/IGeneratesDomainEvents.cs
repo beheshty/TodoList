@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace TodoList.Domain.Common.Events;
+﻿namespace TodoList.Domain.Common.Events;
 
 /// <summary>
 /// Defines an interface for entities that can generate domain events.

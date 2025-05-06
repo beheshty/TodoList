@@ -3,7 +3,7 @@ namespace TodoList.Domain.Entities.TodoItems;
 public enum TodoItemStatus
 {
 
-    NotStarted,
+    NotStarted=1,
     InProgress,
     Completed
 }

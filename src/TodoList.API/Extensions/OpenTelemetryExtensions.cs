@@ -1,25 +1,20 @@
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using OpenTelemetry.Metrics;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Logs;
 using OpenTelemetry.Trace;
-using System;
-using System.Diagnostics;
 
 namespace TodoList.API.Extensions;
 
 public static class OpenTelemetryExtensions
 {
     // Define constant for the application name
-    public const string ServiceName = "TodoList.API";
+    private const string ServiceName = "TodoList.API";
     
     // Register our activity sources
-    private static readonly string[] _activitySources = new[]
-    {
+    private static readonly string[] ActivitySources =
+    [
         ServiceName
-    };
+    ];
 
     /// <summary>
     /// Adds OpenTelemetry to the application (traces, metrics, and logging)
@@ -44,7 +39,7 @@ public static class OpenTelemetryExtensions
         services.AddOpenTelemetry()
             .WithTracing(builder => builder
                 .SetResourceBuilder(resourceBuilder)
-                .AddSource(_activitySources) // Register our custom activity sources
+                .AddSource(ActivitySources) // Register our custom activity sources
                 .AddAspNetCoreInstrumentation(options =>
                 {
                     options.RecordException = true;
